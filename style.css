@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #181818, #101010);
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #222;
+    padding: 10px 20px;
+}
+
+.logo img {
+    width: 120px;
+}
+
+#search-bar {
+    padding: 10px;
+    width: 250px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.genre-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    background: #1b1b1b;
+}
+
+.genre-btn {
+    background: orange;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.genre-btn:hover {
+    background: #ff8c00;
+}
+
+.movie-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.movie-card {
+    background: #222;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.movie-card h3 {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.rating {
+    color: orange;
+    font-weight: bold;
+}
+
+.footer {
+    background: #222;
+    padding: 10px;
+    font-size: 14px;
+}
