@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Recommendation App</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script> 
 </head>
 <body>
-    <header>
-        <h1>Movie Recommendation App</h1>
-        <form id="form">
-            <input type="text" id="search" class="search" placeholder="Search for movies...">
-        </form>
-    </header>
+    <h1>John's Movie App</h1>
+    
+    <form id="form">
+        <input type="text" id="search" placeholder="Search for movies...">
+    </form>
 
     <div id="tags"></div>
-    <main id="main"></main>
 
-    <div class="pagination">
-        <button id="prev" class="page-btn">Prev</button>
+    <div id="main"></div>
+
+    <div id="pagination">
+        <button id="prev">Previous</button>
         <span id="current">1</span>
-        <button id="next" class="page-btn">Next</button>
+        <button id="next">Next</button>
     </div>
-
-    <script src="app.js"></script>
 </body>
 </html>

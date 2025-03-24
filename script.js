@@ -13,6 +13,7 @@ const genres = [
     { id: 53, name: "Thriller" }, { id: 10752, name: "War" }, { id: 37, name: "Western" }
 ];
 
+// Get DOM elements safely
 const main = document.getElementById("main");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
@@ -21,6 +22,11 @@ const prev = document.getElementById("prev");
 const next = document.getElementById("next");
 const current = document.getElementById("current");
 
+// Check if elements exist to avoid errors
+if (!main || !form || !search || !tagsEl || !prev || !next || !current) {
+    console.error("One or more elements are missing from the DOM.");
+}
+
 let currentPage = 1;
 let totalPages = 100;
 let selectedGenre = [];
@@ -28,8 +34,11 @@ let selectedGenre = [];
 setGenre();
 getMovies(API_URL);
 
+// Function to create genre tags
 function setGenre() {
+    if (!tagsEl) return; // Prevent errors if element is missing
     tagsEl.innerHTML = "";
+
     genres.forEach((genre) => {
         const t = document.createElement("div");
         t.classList.add("tag");
@@ -48,6 +57,7 @@ function setGenre() {
     });
 }
 
+// Function to highlight selected genres
 function highlightSelection() {
     document.querySelectorAll(".tag").forEach(tag => {
         tag.classList.remove("highlight");
@@ -57,23 +67,31 @@ function highlightSelection() {
     });
 }
 
+// Fetch movies from API
 function getMovies(url) {
     fetch(url)
         .then((res) => res.json())
         .then((data) => {
-            if (data.results.length > 0) {
+            if (data.results && data.results.length > 0) {
                 showMovies(data.results);
                 currentPage = data.page;
                 totalPages = data.total_pages;
-                current.innerText = currentPage;
+                if (current) current.innerText = currentPage;
             } else {
-                main.innerHTML = `<h1>No Results Found</h1>`;
+                if (main) main.innerHTML = `<h1>No Results Found</h1>`;
             }
+        })
+        .catch(error => {
+            console.error("Error fetching movies:", error);
+            if (main) main.innerHTML = `<h1>Error fetching data. Try again later.</h1>`;
         });
 }
 
+// Display movies on the page
 function showMovies(data) {
+    if (!main) return;
     main.innerHTML = "";
+
     data.forEach((movie) => {
         const { title, poster_path, vote_average, overview } = movie;
         const movieEl = document.createElement("div");
@@ -82,37 +100,47 @@ function showMovies(data) {
             <img src="${poster_path ? IMAGE_URL + poster_path : "https://via.placeholder.com/200"}" alt="${title}">
             <div class="movie-info">
                 <h3>${title}</h3>
-                <span class="${getColor(vote_average)}">${vote_average}</span>
+                <span class="${getColor(vote_average)}">${vote_average.toFixed(1)}</span>
             </div>
             <div class="overview">
                 <h3>Overview</h3>
-                ${overview}
+                <p>${overview || "No overview available."}</p>
             </div>
         `;
         main.appendChild(movieEl);
     });
 }
 
+// Get color based on rating
 function getColor(vote) {
     return vote >= 8 ? "green" : vote >= 5 ? "orange" : "red";
 }
 
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const searchTerm = search.value.trim();
-    if (searchTerm) {
-        getMovies(SEARCH_URL + searchTerm);
-    }
-});
+// Search movie
+if (form) {
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const searchTerm = search.value.trim();
+        if (searchTerm) {
+            getMovies(SEARCH_URL + encodeURIComponent(searchTerm));
+        }
+    });
+}
 
-prev.addEventListener("click", () => {
-    if (currentPage > 1) {
-        getMovies(`${API_URL}&page=${currentPage - 1}`);
-    }
-});
+// Pagination - Previous Page
+if (prev) {
+    prev.addEventListener("click", () => {
+        if (currentPage > 1) {
+            getMovies(`${API_URL}&page=${currentPage - 1}`);
+        }
+    });
+}
 
-next.addEventListener("click", () => {
-    if (currentPage < totalPages) {
-        getMovies(`${API_URL}&page=${currentPage + 1}`);
-    }
-});
+// Pagination - Next Page
+if (next) {
+    next.addEventListener("click", () => {
+        if (currentPage < totalPages) {
+            getMovies(`${API_URL}&page=${currentPage + 1}`);
+        }
+    });
+}
