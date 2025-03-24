@@ -3,43 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John's Cyber Movies Finder</title>
+    <title>Movie Recommendation App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <div class="logo">
-            <img src="logo1.png" alt="John's Cyber Movies Finder Logo">
-        </div>
-        <input type="text" id="search-bar" placeholder="Search for a movie...">
+        <h1>Movie Recommendation App</h1>
+        <form id="form">
+            <input type="text" id="search" class="search" placeholder="Search for movies...">
+        </form>
     </header>
 
-    <div class="genre-message">
-        <h2>🎬 Discover Your Next Favorite Movie! 🎥</h2>
-        <p>Pick a genre below and dive into a world of amazing films! 🍿🔥</p>
+    <div id="tags"></div>
+    <main id="main"></main>
+
+    <div class="pagination">
+        <button id="prev" class="page-btn">Prev</button>
+        <span id="current">1</span>
+        <button id="next" class="page-btn">Next</button>
     </div>
 
-    <div class="genre-container">
-        <button class="genre-btn" data-genre="Action">Action</button>
-        <button class="genre-btn" data-genre="Adventure">Adventure</button>
-        <button class="genre-btn" data-genre="Animation">Animation</button>
-        <button class="genre-btn" data-genre="Comedy">Comedy</button>
-        <button class="genre-btn" data-genre="Crime">Crime</button>
-        <button class="genre-btn" data-genre="Drama">Drama</button>
-        <button class="genre-btn" data-genre="Fantasy">Fantasy</button>
-        <button class="genre-btn" data-genre="Horror">Horror</button>
-        <button class="genre-btn" data-genre="Mystery">Mystery</button>
-        <button class="genre-btn" data-genre="Romance">Romance</button>
-        <button class="genre-btn" data-genre="Science-Fiction">Sci-Fi</button>
-        <button class="genre-btn" data-genre="Thriller">Thriller</button>
-    </div>
-
-    <div id="movie-container" class="movie-container"></div>
-
-    <footer>
-        <p>Located at Utawala, Contact: <a href="tel:+254745172123">0745172123</a></p>
-    </footer>
-
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
